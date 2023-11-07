@@ -23,7 +23,11 @@ ws.onmessage = (msg) => {
 
 text.onkeydown = (e) => {
     if (e.keyCode === 13 && text.value !== "") {
-        ws.send("<" + playerName + "> " + text.value);
+        let sendText = text.value;
+        if (sendText.slice(-1) === 'ん' || (sendText.slice(0, 1) !== chat.innerText.slice(-2).slice(0, 1) && chat.innerText !== '')) {
+            sendText += "\n" + playerName + " の負け";
+        }
+        ws.send("<" + playerName + "> " + sendText);
         text.value = "";
     }
 };
