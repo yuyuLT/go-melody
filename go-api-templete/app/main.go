@@ -11,8 +11,11 @@ func main() {
 	r := gin.Default()
 	m := melody.New()
 
+	r.Static("/js", "src/js/")
+	r.Static("/css", "src/css/")
+
 	r.GET("/", func(c *gin.Context) {
-		http.ServeFile(c.Writer, c.Request, "index.html")
+		http.ServeFile(c.Writer, c.Request, "src/index.html")
 	})
 
 	r.GET("/ws", func(c *gin.Context) {
