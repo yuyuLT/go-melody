@@ -1,17 +1,27 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/olahol/melody"
 )
 
 func main() {
-	router := gin.Default()
+	r := gin.Default()
+	m := melody.New()
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World",
-		})
+	r.GET("/", func(c *gin.Context) {
+		http.ServeFile(c.Writer, c.Request, "index.html")
 	})
 
-	router.Run(":3150")
+	r.GET("/ws", func(c *gin.Context) {
+		m.HandleRequest(c.Writer, c.Request)
+	})
+
+	m.HandleMessage(func(s *melody.Session, msg []byte) {
+		m.Broadcast(msg)
+	})
+
+	r.Run(":3150")
 }
