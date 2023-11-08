@@ -1,5 +1,5 @@
 
-const url = "ws://" + window.location.host + "/ws";
+const url = "wss://" + window.location.host + "/ws";
 const ws = new WebSocket(url);
 const playerName = prompt('プレイヤー名を入力してください');
 
