@@ -22,7 +22,7 @@ ws.onmessage = (msg) => {
 };
 
 text.onkeydown = (e) => {
-    if (e.key === 'Enter' && text.value !== "") {
+    if (e.key === 'Enter' && text.value !== "" && !e.isComposing) {
         let sendText = text.value;
         if (sendText.slice(-1) === 'ん' || (sendText.slice(0, 1) !== chat.innerText.slice(-2).slice(0, 1) && chat.innerText !== '')) {
             sendText += "\n" + playerName + " の負け";
